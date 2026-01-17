@@ -1,0 +1,1 @@
+export const DB_NAME = 'youtube'; // or any name you want
