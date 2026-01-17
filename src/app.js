@@ -16,4 +16,28 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 app.use(cookieParser());
 
-export default app;
+// Log all incoming requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+// routes imports
+import userRoutes from './routes/user.routes.js';
+
+
+
+// routes redirection
+app.use('/api/users', userRoutes);
+
+// Test route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'YouTube Backend API is running! 🚀',
+    endpoints: {
+      users: '/api/users'
+    }
+  });
+});
+
+export  {app};
